@@ -280,7 +280,7 @@ class FollowsTests(TestCase):
         self.auth_client2.force_login(FollowsTests.user2)
 
     def test_posts_auth_add_delete_follow(self):
-        """Авторизованный пользователь может добавить/удалить подписку."""
+        """Авторизованный пользователь может добавить подписку."""
         follows_count = Follow.objects.count()
         self.assertFalse(Follow.objects.filter(
             user=FollowsTests.user1,
@@ -290,9 +290,15 @@ class FollowsTests(TestCase):
         self.assertEqual(Follow.objects.count(), follows_count + 1)
         self.assertTrue(Follow.objects.filter(
             user=FollowsTests.user1, author=FollowsTests.user2).exists())
+
+    def test_posts_auth_add_delete_follow(self):
+        """Авторизованный пользователь может удалить подписку."""
+        Follow.objects.get_or_create(user=FollowsTests.user1,
+                                     author=FollowsTests.user2)
+        follows_count = Follow.objects.count()
         self.auth_client1.get(reverse('posts:profile_unfollow',
                                       args=[FollowsTests.user2]))
-        self.assertEqual(Follow.objects.count(), follows_count)
+        self.assertEqual(Follow.objects.count(), follows_count - 1)
         self.assertFalse(Follow.objects.filter(
             user=FollowsTests.user1, author=FollowsTests.user2).exists())
 
