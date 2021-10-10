@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}
+  {% if request.resolver_match.view_name  == 'posts:post_edit' %}
+    Редактировать запись
+  {% else %}
+    Новый пост
+  {% endif %}
+{% endblock %}
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-8 p-5">
+      <div class="card">
+        <div class="card-header">
+          {% if request.resolver_match.view_name  == 'posts:post_edit' %}
+            Редактировать запись
+          {% else %}
+            Новый пост
+          {% endif %}   
+        </div>
+        <div class="card-body">    
+          {% include 'includes/form_error.html' %}   
+          <form method="post" enctype="multipart/form-data"
+            {% if action_url %}
+              action="{% url action_url %}"
+            {% endif %}
+          >
+            {% csrf_token %}          
+            <div class="form-group row my-3 p-3">
+              <label for="id_text">
+                {{form.text.label|safe}}
+                <span class="required text-danger" >*</span>                  
+              </label>
+              <textarea name="text" cols="40" rows="10" class="form-control" required id="id_text">
+                {% if request.resolver_match.view_name  == 'posts:post_edit' %}
+                  {{ post.text }}
+                {% endif %} 
+              </textarea>                
+              <small id="id_text-help" class="form-text text-muted">
+                {{ form.text.help_text|safe }}
+              </small>                  
+            </div>            
+            <div class="form-group row my-3 p-3">
+              <label for="id_group">
+                {{form.group.label|safe}}                  
+              </label>
+              <select name="group" class="form-control" id="id_group">
+                <option value="" selected>-------</option>
+                  {% for group in groups %}
+                    <option value="{{ group.id }}">Группа: {{ group.title }}</option>
+                  {% endfor %}
+              </select>
+              <small id="id_group-help" class="form-text text-muted">
+                {{ form.group.help_text|safe }}
+              </small>
+            </div>
+            <div class="form-group row my-3 p-3">
+              <label for="id_image">
+                {{form.image.label|safe}}                      
+              </label>
+              {% if request.resolver_match.view_name  != 'posts:post_create' %}
+                {% if post.image.name %}
+                  На данный момент: <a href="{{ post.image.url }}">{{ post.image.name }}</a>
+                  <input type="checkbox" name="image-clear" id="image-clear_id">
+                  <label for="image-clear_id">Очистить</label><br>
+                {% else %}
+                  Изменить:
+                  <input type="file" name="image" accept="image/*" class="form-control" id="id_image">
+                {% endif %} 
+              {% else %}
+              <input type="file" name="image" accept="image/*" class="form-control" id="id_image">
+              {% endif %}                   
+            </div>
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary">
+              {% if request.resolver_match.view_name  == 'posts:post_create' %}
+                Добавить
+              {% else %}
+                Сохранить
+              {% endif %}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
