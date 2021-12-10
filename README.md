@@ -1,3 +1,63 @@
-# hw05_final
+# Учебный проект "Yatube"
 
-[![CI](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml)
+## Социальная сеть "Yatube" для публикации личных дневников.
+
+Социальная сеть "Yatube" позволяет публиковать личные записи в тематических сообществах. Реализованы возможности регистрации, изменения и восстановления пароля, создания собственной страницы с постами, комментирования своих и чужих публикаций, а также подписки на интересующих авторов.
+
+Проект реализован на Django Framework.
+
+## Как запустить проект:
+
+Клонировать репозиторий и перейти в него в командной строке:
+
+```
+git clone https://github.com/Saladin366/hw05_final.git
+```
+
+```
+cd hw05_final
+```
+
+Cоздать и активировать виртуальное окружение:
+
+```
+python3 -m venv venv
+```
+
+```
+source venv/Scripts/activate
+```
+
+или
+
+```
+source venv/bin/activate
+```
+
+Установить зависимости из файла requirements.txt:
+
+```
+pip install -r requirements.txt
+```
+
+Выполнить миграции:
+
+```
+cd yatube
+```
+
+```
+python3 manage.py migrate
+```
+
+Запустить проект:
+
+```
+python3 manage.py runserver
+```
+
+Перейти по ссылке:
+
+```
+http://127.0.0.1:8000/
+```
