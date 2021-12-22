@@ -1,4 +1,7 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
@@ -14,7 +17,7 @@ POSTS_ON_PAGE = 10
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 
-SECRET_KEY = 'wm$9ii6%lw_1t5har!+h)u5muz2wt-i8kr+yq_qod*#mv@869h'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
 

@@ -8,3 +8,4 @@ pytest-pythonpath==0.7.3
 requests==2.26.0
 six==1.16.0
 sorl-thumbnail==12.7.0
+python-dotenv==0.19.2
